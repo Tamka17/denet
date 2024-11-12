@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "denet/internal/proto";
+
+message GetAccountRequest {
+    string ethereum_address = 1;
+    string crypto_signature = 2;
+}
+
+message GetAccountResponse {
+    string gastoken_balance = 1;
+    uint64 wallet_nonce = 2;
+}
+
+message GetAccountsRequest {
+    repeated string ethereum_addresses = 1;
+    string erc20_token_address = 2;
+}
+
+message GetAccountsResponse {
+    string ethereum_address = 1;
+    string erc20_balance = 2;
+}
+
+service AccountService {
+    rpc GetAccount(GetAccountRequest) returns (GetAccountResponse);
+    rpc GetAccounts(stream GetAccountsRequest) returns (stream GetAccountsResponse);
+}
